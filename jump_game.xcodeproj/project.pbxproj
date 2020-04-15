@@ -16,6 +16,7 @@
 		30771E1C244506D200890AB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30771E1A244506D200890AB9 /* LaunchScreen.storyboard */; };
 		30BD2B992445173D00272DA0 /* JumperScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD2B982445173D00272DA0 /* JumperScene.swift */; };
 		30BD2B9B244519DD00272DA0 /* JumperScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 30BD2B9A244519DD00272DA0 /* JumperScene.sks */; };
+		A719FFEE24468A6B00BFE8C1 /* Jungle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A719FFED24468A6B00BFE8C1 /* Jungle.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		30771E1D244506D200890AB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30BD2B982445173D00272DA0 /* JumperScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumperScene.swift; sourceTree = "<group>"; };
 		30BD2B9A244519DD00272DA0 /* JumperScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = JumperScene.sks; sourceTree = "<group>"; };
+		A719FFED24468A6B00BFE8C1 /* Jungle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Jungle.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				30BD2B9A244519DD00272DA0 /* JumperScene.sks */,
 				30BD2B982445173D00272DA0 /* JumperScene.swift */,
 				30771E13244506D000890AB9 /* GameViewController.swift */,
+				A719FFED24468A6B00BFE8C1 /* Jungle.mp3 */,
 				30771E15244506D000890AB9 /* Main.storyboard */,
 				30771E18244506D200890AB9 /* Assets.xcassets */,
 				30771E1A244506D200890AB9 /* LaunchScreen.storyboard */,
@@ -139,6 +142,7 @@
 				30771E19244506D200890AB9 /* Assets.xcassets in Resources */,
 				30771E1C244506D200890AB9 /* LaunchScreen.storyboard in Resources */,
 				30BD2B9B244519DD00272DA0 /* JumperScene.sks in Resources */,
+				A719FFEE24468A6B00BFE8C1 /* Jungle.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
