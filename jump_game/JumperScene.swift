@@ -51,7 +51,7 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
                 if (jumperNode != nil){
                     let animation = SKAction.animate(with: jumperRunning, timePerFrame:0.1)
                     jumperNode?.run(animation)
-                    let groundAnimation = SKAction.animate(with: jumperGround, timePerFrame:0.4)
+                    let groundAnimation = SKAction.animate(with: jumperGround, timePerFrame:0.2)
                     ground.run(groundAnimation)
                 }
 //                moveEnemy()
@@ -89,7 +89,9 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         
         if body1.categoryBitMask == PhysicsCategories.Jumper && body2.categoryBitMask == PhysicsCategories.Bananas{
             spawnSplash(spawnPosition: body2.node!.position)
-            body2.node?.removeFromParent()
+            body2.node!.removeFromParent()
+            let hitAnimation = SKAction.animate(with: jumperHit, timePerFrame:0.4)
+            body1.node!.run(hitAnimation)
         }
     }
     
@@ -210,11 +212,13 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(bananasNode)
         
         // group the move and rotate actions together and then run sequencelly the grouping and the remove actions
+        let throwingSound = SKAction.playSoundFileNamed("sfx_throw.wav", waitForCompletion: false)
         let moveBananas = SKAction.move(to: endPoint, duration: 1.0)
         let rotateBananas = SKAction.rotate(byAngle: .pi, duration: 1.0)
         let bananaGroup = SKAction.group([moveBananas, rotateBananas])
         let removeBananas = SKAction.removeFromParent()
-        let bananaSequence = SKAction.sequence([bananaGroup, removeBananas])
+        let bananaSequence = SKAction.sequence([throwingSound, bananaGroup, removeBananas])
+        
         bananasNode.run(bananaSequence)
         
     }
@@ -226,11 +230,11 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         splashNode.setScale(0)
         self.addChild(splashNode)
         
+        let hitSound = SKAction.playSoundFileNamed("hit.wav", waitForCompletion: false)
         let scaleAction = SKAction.scale(to: 0.2, duration: 0.1)
         let fadeAction = SKAction.fadeOut(withDuration: 0.1)
         let removeAction = SKAction.removeFromParent()
-        
-        let splashSequence = SKAction.sequence([scaleAction, fadeAction, removeAction])
+        let splashSequence = SKAction.sequence([hitSound, scaleAction, fadeAction, removeAction])
         
         splashNode.run(splashSequence)
     }

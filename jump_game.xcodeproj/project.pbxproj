@@ -18,6 +18,8 @@
 		A751EBD92451067B001B5DD9 /* JumperScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A751EBD82451067B001B5DD9 /* JumperScene.sks */; };
 		A757A3E924523C720059CFBA /* Jungle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A757A3E824523C720059CFBA /* Jungle.mp3 */; };
 		A757A3EB24523D1F0059CFBA /* Forest_Ambience.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A757A3EA24523D1F0059CFBA /* Forest_Ambience.mp3 */; };
+		A757A3ED24523F1E0059CFBA /* sfx_throw.wav in Resources */ = {isa = PBXBuildFile; fileRef = A757A3EC24523F1E0059CFBA /* sfx_throw.wav */; };
+		A757A3F0245243FB0059CFBA /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = A757A3EF245243FB0059CFBA /* hit.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		A751EBD82451067B001B5DD9 /* JumperScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = JumperScene.sks; sourceTree = "<group>"; };
 		A757A3E824523C720059CFBA /* Jungle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Jungle.mp3; sourceTree = "<group>"; };
 		A757A3EA24523D1F0059CFBA /* Forest_Ambience.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Forest_Ambience.mp3; sourceTree = "<group>"; };
+		A757A3EC24523F1E0059CFBA /* sfx_throw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx_throw.wav; sourceTree = "<group>"; };
+		A757A3EF245243FB0059CFBA /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				A751EBD82451067B001B5DD9 /* JumperScene.sks */,
 				A757A3E824523C720059CFBA /* Jungle.mp3 */,
 				A757A3EA24523D1F0059CFBA /* Forest_Ambience.mp3 */,
+				A757A3EC24523F1E0059CFBA /* sfx_throw.wav */,
+				A757A3EF245243FB0059CFBA /* hit.wav */,
 			);
 			path = jump_game;
 			sourceTree = "<group>";
@@ -145,6 +151,8 @@
 				30771E0E244506D000890AB9 /* IntroScene.sks in Resources */,
 				30771E19244506D200890AB9 /* Assets.xcassets in Resources */,
 				30771E1C244506D200890AB9 /* LaunchScreen.storyboard in Resources */,
+				A757A3ED24523F1E0059CFBA /* sfx_throw.wav in Resources */,
+				A757A3F0245243FB0059CFBA /* hit.wav in Resources */,
 				A751EBD92451067B001B5DD9 /* JumperScene.sks in Resources */,
 				A757A3E924523C720059CFBA /* Jungle.mp3 in Resources */,
 			);
