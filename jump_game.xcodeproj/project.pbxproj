@@ -15,8 +15,9 @@
 		30771E19244506D200890AB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30771E18244506D200890AB9 /* Assets.xcassets */; };
 		30771E1C244506D200890AB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30771E1A244506D200890AB9 /* LaunchScreen.storyboard */; };
 		30BD2B992445173D00272DA0 /* JumperScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD2B982445173D00272DA0 /* JumperScene.swift */; };
-		30BD2B9B244519DD00272DA0 /* JumperScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 30BD2B9A244519DD00272DA0 /* JumperScene.sks */; };
-		A719FFEE24468A6B00BFE8C1 /* Jungle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A719FFED24468A6B00BFE8C1 /* Jungle.mp3 */; };
+		A751EBD92451067B001B5DD9 /* JumperScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A751EBD82451067B001B5DD9 /* JumperScene.sks */; };
+		A757A3E924523C720059CFBA /* Jungle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A757A3E824523C720059CFBA /* Jungle.mp3 */; };
+		A757A3EB24523D1F0059CFBA /* Forest_Ambience.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A757A3EA24523D1F0059CFBA /* Forest_Ambience.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +31,9 @@
 		30771E1B244506D200890AB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		30771E1D244506D200890AB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30BD2B982445173D00272DA0 /* JumperScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumperScene.swift; sourceTree = "<group>"; };
-		30BD2B9A244519DD00272DA0 /* JumperScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = JumperScene.sks; sourceTree = "<group>"; };
-		A719FFED24468A6B00BFE8C1 /* Jungle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Jungle.mp3; sourceTree = "<group>"; };
+		A751EBD82451067B001B5DD9 /* JumperScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = JumperScene.sks; sourceTree = "<group>"; };
+		A757A3E824523C720059CFBA /* Jungle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Jungle.mp3; sourceTree = "<group>"; };
+		A757A3EA24523D1F0059CFBA /* Forest_Ambience.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Forest_Ambience.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,17 +66,18 @@
 		30771E0A244506D000890AB9 /* jump_game */ = {
 			isa = PBXGroup;
 			children = (
-				30771E0B244506D000890AB9 /* AppDelegate.swift */,
-				30771E0D244506D000890AB9 /* IntroScene.sks */,
 				30771E11244506D000890AB9 /* IntroScene.swift */,
-				30BD2B9A244519DD00272DA0 /* JumperScene.sks */,
 				30BD2B982445173D00272DA0 /* JumperScene.swift */,
+				30771E0B244506D000890AB9 /* AppDelegate.swift */,
 				30771E13244506D000890AB9 /* GameViewController.swift */,
-				A719FFED24468A6B00BFE8C1 /* Jungle.mp3 */,
 				30771E15244506D000890AB9 /* Main.storyboard */,
 				30771E18244506D200890AB9 /* Assets.xcassets */,
 				30771E1A244506D200890AB9 /* LaunchScreen.storyboard */,
 				30771E1D244506D200890AB9 /* Info.plist */,
+				30771E0D244506D000890AB9 /* IntroScene.sks */,
+				A751EBD82451067B001B5DD9 /* JumperScene.sks */,
+				A757A3E824523C720059CFBA /* Jungle.mp3 */,
+				A757A3EA24523D1F0059CFBA /* Forest_Ambience.mp3 */,
 			);
 			path = jump_game;
 			sourceTree = "<group>";
@@ -138,11 +141,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				30771E17244506D000890AB9 /* Main.storyboard in Resources */,
+				A757A3EB24523D1F0059CFBA /* Forest_Ambience.mp3 in Resources */,
 				30771E0E244506D000890AB9 /* IntroScene.sks in Resources */,
 				30771E19244506D200890AB9 /* Assets.xcassets in Resources */,
 				30771E1C244506D200890AB9 /* LaunchScreen.storyboard in Resources */,
-				30BD2B9B244519DD00272DA0 /* JumperScene.sks in Resources */,
-				A719FFEE24468A6B00BFE8C1 /* Jungle.mp3 in Resources */,
+				A751EBD92451067B001B5DD9 /* JumperScene.sks in Resources */,
+				A757A3E924523C720059CFBA /* Jungle.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
