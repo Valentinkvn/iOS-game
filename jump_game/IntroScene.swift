@@ -2,10 +2,10 @@ import SpriteKit
 import GameplayKit
 import UIKit
 
+// is the music activated?
+var sound: Bool = true
+
 class GameScene: SKScene {
-    
-    // is the music activated?
-    var sound: Bool = true
     
     // main nodes of the biew
     var background = SKSpriteNode()
@@ -26,14 +26,7 @@ class GameScene: SKScene {
             
             // the play button was pressed
             if (playButton.contains(pointOfTouch)){
-                // first, fadeOut the playbutton and then play the doors transition
-                let fadeOut = SKAction.fadeOut(withDuration: 1.0)
-                playButton.run(fadeOut, completion: {
-                    let doors = SKTransition.doorway(withDuration: 2.5)
-                    let jumperScene = JumperScene(fileNamed: "JumperScene")
-                    // go to the jumper scene
-                    self.view?.presentScene(jumperScene!, transition: doors)
-                })
+                goToGame()
             }
             
             // the sound button was pressed
@@ -98,6 +91,17 @@ class GameScene: SKScene {
         let backgroundMusic = SKAudioNode(url: soundUrl)
         backgroundMusic.name = "backgroundMusic"
         self.addChild(backgroundMusic)
+    }
+    
+    private func goToGame() {
+        // first, fadeOut the playbutton and then play the doors transition
+        let fadeOut = SKAction.fadeOut(withDuration: 1.0)
+        playButton.run(fadeOut, completion: {
+            let doors = SKTransition.doorway(withDuration: 2.5)
+            let jumperScene = JumperScene(fileNamed: "JumperScene")
+            // go to the jumper scene
+            self.view?.presentScene(jumperScene!, transition: doors)
+        })
     }
 
 }

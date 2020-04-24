@@ -1,13 +1,13 @@
 import UIKit
 import SpriteKit
 
+var gameScore = 0
+
 class JumperScene: SKScene, SKPhysicsContactDelegate {
     
-    var gameScore: UInt32 = 0
-    var gameLives: Int32 = 3
-    var gameLevel: UInt32 = 1
+    var gameLives: Int32 = 1
+    var gameLevel: UInt32 = 0
     // is the music activated?
-    var sound: Bool = true
     
     // declare the arrays of atlas frames
     var jumperRunning = [SKTexture]()
@@ -18,11 +18,12 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
     
     var background = SKSpriteNode()
     var ground = SKSpriteNode()
-    var soundButton = SKSpriteNode()
     var enemyNode = SKSpriteNode()
     var jumperNode = SKSpriteNode()
     var scoreNode = SKLabelNode(fontNamed: "The Bold Font")
     var livesNode = SKLabelNode(fontNamed: "The Bold Font")
+    
+    let backgroundMusic = SKAudioNode()
     
     struct PhysicsCategories {
         static let None :       UInt32 = 0
@@ -41,14 +42,24 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
+        
+        if (sound == true){
+            backgroundMusic.run(SKAction.play())
+        }
+        else{
+            backgroundMusic.run(SKAction.stop())
+        }
+        
+        gameScore = 0
+            
         self.initJumperScene()
-        self.startLevel()
+        self.startNewLevel()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let jumperNode = self.childNode(withName: "jumperNode")
         
-        let backgroundMusic = self.childNode(withName: "backgroundMusic") as! SKAudioNode
+        
         
         for touch: AnyObject in touches{
             let pointOfTouch = touch.location(in: self)
@@ -63,20 +74,20 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
 //                moveEnemy()
 //                spawnBananas()
             }
-            // the sound button was pressed
-            if (soundButton.contains(pointOfTouch)){
-                // toggle the sound and change the texture of sound image
-                if (sound == true){
-                    soundButton.texture = SKTexture(imageNamed: "mute")
-                    backgroundMusic.run(SKAction.stop())
-                    sound = false
-                }
-                else{
-                    soundButton.texture = SKTexture(imageNamed: "sound")
-                    backgroundMusic.run(SKAction.play())
-                    sound = true
-                }
-            }
+//            // the sound button was pressed
+//            if (soundButton.contains(pointOfTouch)){
+//                // toggle the sound and change the texture of sound image
+//                if (sound == true){
+//                    soundButton.texture = SKTexture(imageNamed: "mute")
+//                    backgroundMusic.run(SKAction.stop())
+//                    sound = false
+//                }
+//                else{
+//                    soundButton.texture = SKTexture(imageNamed: "sound")
+//                    backgroundMusic.run(SKAction.play())
+//                    sound = true
+//                }
+//            }
         }
     }
     
@@ -93,14 +104,17 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
             body2 = contact.bodyA
         }
         
+        // the contact between the jumper and bananas
         if body1.categoryBitMask == PhysicsCategories.Jumper && body2.categoryBitMask == PhysicsCategories.Bananas{
             spawnSplash(spawnPosition: body2.node!.position)
             body2.node!.removeFromParent()
             let hitAnimation = SKAction.animate(with: jumperHit, timePerFrame:0.4)
+            
             body1.node!.run(hitAnimation)
             loseLife()
         }
         
+        // the contact between the jumper and reward
         if body1.categoryBitMask == PhysicsCategories.Jumper && body2.categoryBitMask == PhysicsCategories.Reward{
             let scaleAction = SKAction.scale(to: 0.05, duration: 0.1)
             let fadeAction = SKAction.fadeOut(withDuration: 0.1)
@@ -116,8 +130,6 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         
         let width = self.size.width
         let height = self.size.height
-        
-        print(self.size)
         
         // init background
         background = SKSpriteNode(imageNamed: "rainforest")
@@ -192,7 +204,7 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         scoreNode.position = CGPoint(x: -width/2*0.85, y: height/2*0.8)
         self.addChild(scoreNode)
         
-        livesNode.text = "Lives: 3"
+        livesNode.text = "Lives: \(gameLives)"
         livesNode.fontSize = 20
         livesNode.color = SKColor.brown
         livesNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
@@ -213,20 +225,42 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         return atlas
     }
     
-    func startLevel(){
+    func startNewLevel(){
+        
+        gameLevel += 1
+        
+        // if next level stop spawning with the previous timers and start with new ones
+        if self.action(forKey: "spawnForever") != nil{
+            self.removeAction(forKey: "spawnForever")
+        }
+        
+        var spawningDelay = NSTimeIntervalSince1970
+        
+        switch gameLevel {
+            case 1:
+                spawningDelay = 3.0
+            case 2:
+                spawningDelay = 2.0
+            case 3:
+                spawningDelay = 1.5
+            default:
+                spawningDelay = 1.5
+                print("Could not find level info")
+        }
+        
         let bananaSpawn = SKAction.run(spawnBananas)
         let enemyMove = SKAction.run(moveEnemy)
-        let bananasWait = SKAction.wait(forDuration: 3.0)
+        let bananasWait = SKAction.wait(forDuration: spawningDelay + 1.0)
         let bananaSeq = SKAction.sequence([bananasWait, enemyMove, bananaSpawn])
         
         let rewardSpawn = SKAction.run(spawnReward)
-        let rewardWait = SKAction.wait(forDuration: 2.0)
+        let rewardWait = SKAction.wait(forDuration: spawningDelay)
         let rewardSeq = SKAction.sequence([rewardWait, rewardSpawn])
         
         let seqGroup = SKAction.group([bananaSeq, rewardSeq])
         
         let spawnForever = SKAction.repeatForever(seqGroup)
-        self.run(spawnForever)
+        self.run(spawnForever, withKey: "spawnForever")
     }
     
     func spawnBananas(){
@@ -327,17 +361,36 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
     func addScore(){
         gameScore += 1
         scoreNode.text = "Score: \(gameScore)"
+        
+        if gameScore == 2 || gameScore == 4{
+            startNewLevel()
+        }
     }
     
     func loseLife(){
         gameLives -= 1
-        livesNode.text = "Lives: \(gameLives)"
         
-        let scaleUp = SKAction.scale(to: 1.5, duration: 0.2)
-        let scaleDown = SKAction.scale(to: 1.0, duration: 0.2)
-        let scaleSeq = SKAction.sequence([scaleUp, scaleDown])
-        
-        livesNode.run(scaleSeq)
+        if gameLives < 0{
+            goToGameOver()
+        }
+        else{
+            livesNode.text = "Lives: \(gameLives)"
+            
+            let scaleUp = SKAction.scale(to: 1.5, duration: 0.2)
+            let scaleDown = SKAction.scale(to: 1.0, duration: 0.2)
+            let scaleSeq = SKAction.sequence([scaleUp, scaleDown])
+            
+            livesNode.run(scaleSeq)
+        }
     }
     
+    func goToGameOver(){
+        self.removeAllActions()
+        let fadeOut = SKTransition.fade(withDuration: 1.0)
+        let gameOver = GameOverScene(size : self.size)
+        gameOver.scaleMode = self.scaleMode
+        
+        // go to the jumper scene
+        self.view?.presentScene(gameOver, transition: fadeOut)
+    }
 }
