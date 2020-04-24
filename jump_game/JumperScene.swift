@@ -3,6 +3,9 @@ import SpriteKit
 
 class JumperScene: SKScene, SKPhysicsContactDelegate {
     
+    var gameScore: UInt32 = 0
+    var gameLives: Int32 = 3
+    var gameLevel: UInt32 = 1
     // is the music activated?
     var sound: Bool = true
     
@@ -18,11 +21,14 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
     var soundButton = SKSpriteNode()
     var enemyNode = SKSpriteNode()
     var jumperNode = SKSpriteNode()
+    var scoreNode = SKLabelNode(fontNamed: "The Bold Font")
+    var livesNode = SKLabelNode(fontNamed: "The Bold Font")
     
     struct PhysicsCategories {
-        static let None : UInt32 = 0
-        static let Jumper : UInt32 = 0b1
-        static let Bananas : UInt32 = 0b10
+        static let None :       UInt32 = 0
+        static let Jumper :     UInt32 = 0b1
+        static let Bananas :    UInt32 = 0b10
+        static let Reward :     UInt32 = 0b100
     }
     
     func randomInt(min: Int, max: Int) -> Int {
@@ -92,6 +98,17 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
             body2.node!.removeFromParent()
             let hitAnimation = SKAction.animate(with: jumperHit, timePerFrame:0.4)
             body1.node!.run(hitAnimation)
+            loseLife()
+        }
+        
+        if body1.categoryBitMask == PhysicsCategories.Jumper && body2.categoryBitMask == PhysicsCategories.Reward{
+            let scaleAction = SKAction.scale(to: 0.05, duration: 0.1)
+            let fadeAction = SKAction.fadeOut(withDuration: 0.1)
+            let removeAction = SKAction.removeFromParent()
+            let rewardSeq = SKAction.sequence([scaleAction, fadeAction, removeAction])
+            
+            body2.node!.run(rewardSeq)
+            addScore()
         }
     }
     
@@ -122,7 +139,7 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         // init jumper player
         jumperNode = SKSpriteNode(imageNamed: "jumper")
         jumperNode.position = CGPoint(x: -255, y: -125)
-        jumperNode.zPosition = 2
+        jumperNode.zPosition = 4
         jumperNode.setScale(0.1)
         jumperNode.name = "jumperNode"
         jumperNode.physicsBody = SKPhysicsBody(rectangleOf: jumperNode.size)
@@ -146,12 +163,12 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         jumperGround = grabAtlas(dataAtlas: groundAtlas, label: "ground")
         
         // create sound button
-        soundButton = SKSpriteNode(imageNamed: "sound")
-        soundButton.name = "soundButton"
-        soundButton.zPosition = 1
-        soundButton.setScale(0.5)
-        soundButton.position = CGPoint(x: -2*height/3, y: width/6)
-        self.addChild(soundButton)
+//        soundButton = SKSpriteNode(imageNamed: "sound")
+//        soundButton.name = "soundButton"
+//        soundButton.zPosition = 1
+//        soundButton.setScale(0.5)
+//        soundButton.position = CGPoint(x: -2*height/3, y: width/6)
+//        self.addChild(soundButton)
         
         // create sound node
         let soundUrl = Bundle.main.url(forResource: "Forest_Ambience", withExtension: "mp3")!
@@ -162,11 +179,26 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         // create sound button
         enemyNode = SKSpriteNode(imageNamed: "monkey-enemy")
         enemyNode.name = "enemyNode"
-        enemyNode.zPosition = 1
+        enemyNode.zPosition = 4
         enemyNode.setScale(2.0)
         enemyNode.position = CGPoint(x: 2*height/3, y: width/6)
         self.addChild(enemyNode)
         
+        scoreNode.text = "Score: 0"
+        scoreNode.fontSize = 20
+        scoreNode.color = SKColor.white
+        scoreNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        scoreNode.zPosition = 5
+        scoreNode.position = CGPoint(x: -width/2*0.85, y: height/2*0.8)
+        self.addChild(scoreNode)
+        
+        livesNode.text = "Lives: 3"
+        livesNode.fontSize = 20
+        livesNode.color = SKColor.brown
+        livesNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        livesNode.zPosition = 5
+        livesNode.position = CGPoint(x: -width/2*0.85, y: height/2*0.6)
+        self.addChild(livesNode)
         
     }
     
@@ -182,11 +214,18 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func startLevel(){
-        let spawn = SKAction.run(spawnBananas)
-        let move = SKAction.run(moveEnemy)
-        let wait = SKAction.wait(forDuration: 2.0)
-        let spawnSeq = SKAction.sequence([wait, move, spawn])
-        let spawnForever = SKAction.repeatForever(spawnSeq)
+        let bananaSpawn = SKAction.run(spawnBananas)
+        let enemyMove = SKAction.run(moveEnemy)
+        let bananasWait = SKAction.wait(forDuration: 3.0)
+        let bananaSeq = SKAction.sequence([bananasWait, enemyMove, bananaSpawn])
+        
+        let rewardSpawn = SKAction.run(spawnReward)
+        let rewardWait = SKAction.wait(forDuration: 2.0)
+        let rewardSeq = SKAction.sequence([rewardWait, rewardSpawn])
+        
+        let seqGroup = SKAction.group([bananaSeq, rewardSeq])
+        
+        let spawnForever = SKAction.repeatForever(seqGroup)
         self.run(spawnForever)
     }
     
@@ -202,7 +241,7 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         let bananasNode = SKSpriteNode(imageNamed: "bananas")
         bananasNode.setScale(0.08)
         bananasNode.position = startPoint
-        bananasNode.zPosition = 1.5
+        bananasNode.zPosition = 2
         bananasNode.zRotation = deg2rad(degree: randomInt(min: 0, max: 360))
         bananasNode.physicsBody = SKPhysicsBody(rectangleOf: bananasNode.size)
         bananasNode.physicsBody!.affectedByGravity = false
@@ -221,6 +260,40 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         
         bananasNode.run(bananaSequence)
         
+    }
+    
+    func spawnReward(){
+        // define a margin for the movement and random chose an endPoint
+        let margin = 100
+        let randomY = randomInt(min: -Int(self.size.height/2) + margin, max: Int(self.size.height/2) - margin)
+        let startPoint = CGPoint(x: Int(self.size.width/2), y: randomY)
+        let endPoint = CGPoint(x: -Int(self.size.width/2), y: randomY)
+        
+        let vineNode = SKSpriteNode(imageNamed: "jungle-vine-1")
+        vineNode.size.height = background.size.height/2 - CGFloat(randomY)
+        vineNode.anchorPoint = CGPoint(x: 0.5, y: 0)
+        vineNode.position = startPoint
+        vineNode.zPosition = 2
+        self.addChild(vineNode)
+        
+        let rewardNode = SKSpriteNode(imageNamed: "gem")
+        rewardNode.setScale(0.04)
+//        rewardNode.anchorPoint = CGPoint(x: 0.5, y: 1.0)
+        rewardNode.position = startPoint
+        rewardNode.zPosition = 3
+        rewardNode.physicsBody = SKPhysicsBody(rectangleOf: rewardNode.size)
+        rewardNode.physicsBody!.affectedByGravity = false
+        rewardNode.physicsBody!.categoryBitMask = PhysicsCategories.Reward
+        rewardNode.physicsBody!.collisionBitMask = PhysicsCategories.None
+        rewardNode.physicsBody!.contactTestBitMask = PhysicsCategories.Jumper
+        self.addChild(rewardNode)
+        
+        let moveReward = SKAction.move(to: endPoint, duration: 2.0)
+        let removeReward = SKAction.removeFromParent()
+        let rewardSequence = SKAction.sequence([moveReward, removeReward])
+        
+        rewardNode.run(rewardSequence)
+        vineNode.run(rewardSequence)
     }
     
     func spawnSplash(spawnPosition: CGPoint){
@@ -249,6 +322,22 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         // move the monkey to the endpoint
         let moveMonkey = SKAction.move(to: endPoint, duration: 1.0)
         enemyNode.run(moveMonkey)
+    }
+    
+    func addScore(){
+        gameScore += 1
+        scoreNode.text = "Score: \(gameScore)"
+    }
+    
+    func loseLife(){
+        gameLives -= 1
+        livesNode.text = "Lives: \(gameLives)"
+        
+        let scaleUp = SKAction.scale(to: 1.5, duration: 0.2)
+        let scaleDown = SKAction.scale(to: 1.0, duration: 0.2)
+        let scaleSeq = SKAction.sequence([scaleUp, scaleDown])
+        
+        livesNode.run(scaleSeq)
     }
     
 }
