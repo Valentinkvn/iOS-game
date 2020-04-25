@@ -62,11 +62,11 @@ class GameOverScene: SKScene {
         self.addChild(scoreLabel)
         
         if gameScore > UserDefaults.standard.integer(forKey: "highscore"){
-            UserDefaults.standard.set(gameScore, forKey: "highscore")
+            UserDefaults.standard.set(gameScore, forKey: "highscore") // set
             highScore = gameScore
         }
         else{
-            highScore = UserDefaults.standard.integer(forKey: "highscore")
+            highScore = UserDefaults.standard.integer(forKey: "highscore") // get
         }
         
         highScoreLabel.text = "Highscore: \(highScore)"

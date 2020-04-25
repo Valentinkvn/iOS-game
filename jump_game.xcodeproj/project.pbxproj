@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		30771E0C244506D000890AB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30771E0B244506D000890AB9 /* AppDelegate.swift */; };
 		30771E0E244506D000890AB9 /* IntroScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 30771E0D244506D000890AB9 /* IntroScene.sks */; };
-		30771E12244506D000890AB9 /* IntroScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30771E11244506D000890AB9 /* IntroScene.swift */; };
 		30771E14244506D000890AB9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30771E13244506D000890AB9 /* GameViewController.swift */; };
 		30771E17244506D000890AB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30771E15244506D000890AB9 /* Main.storyboard */; };
 		30771E19244506D200890AB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30771E18244506D200890AB9 /* Assets.xcassets */; };
@@ -22,13 +21,13 @@
 		A757A3F0245243FB0059CFBA /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = A757A3EF245243FB0059CFBA /* hit.wav */; };
 		A757A3F424524CCC0059CFBA /* theboldfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A757A3F324524CCC0059CFBA /* theboldfont.ttf */; };
 		A75857D62453317C006C70B5 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75857D52453317C006C70B5 /* GameOverScene.swift */; };
+		A764088F2454CEFB00D1B4B4 /* IntroScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A764088E2454CEFB00D1B4B4 /* IntroScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		30771E08244506D000890AB9 /* jump_game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jump_game.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30771E0B244506D000890AB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30771E0D244506D000890AB9 /* IntroScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IntroScene.sks; sourceTree = "<group>"; };
-		30771E11244506D000890AB9 /* IntroScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScene.swift; sourceTree = "<group>"; };
 		30771E13244506D000890AB9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		30771E16244506D000890AB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		30771E18244506D200890AB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -42,6 +41,7 @@
 		A757A3EF245243FB0059CFBA /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit.wav; sourceTree = "<group>"; };
 		A757A3F324524CCC0059CFBA /* theboldfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = theboldfont.ttf; sourceTree = "<group>"; };
 		A75857D52453317C006C70B5 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		A764088E2454CEFB00D1B4B4 /* IntroScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +74,7 @@
 		30771E0A244506D000890AB9 /* jump_game */ = {
 			isa = PBXGroup;
 			children = (
-				30771E11244506D000890AB9 /* IntroScene.swift */,
+				A764088E2454CEFB00D1B4B4 /* IntroScene.swift */,
 				30BD2B982445173D00272DA0 /* JumperScene.swift */,
 				A75857D52453317C006C70B5 /* GameOverScene.swift */,
 				30771E0B244506D000890AB9 /* AppDelegate.swift */,
@@ -172,7 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30771E12244506D000890AB9 /* IntroScene.swift in Sources */,
+				A764088F2454CEFB00D1B4B4 /* IntroScene.swift in Sources */,
 				30BD2B992445173D00272DA0 /* JumperScene.swift in Sources */,
 				30771E14244506D000890AB9 /* GameViewController.swift in Sources */,
 				A75857D62453317C006C70B5 /* GameOverScene.swift in Sources */,
