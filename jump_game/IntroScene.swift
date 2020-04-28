@@ -3,7 +3,7 @@ import GameplayKit
 import UIKit
 
 // is the music activated?
-var sound: Bool = true
+var sound : Bool = true
 
 class GameScene: SKScene {
     
@@ -87,7 +87,7 @@ class GameScene: SKScene {
         self.addChild(soundButton)
         
         // create sound node
-        let soundUrl = Bundle.main.url(forResource: "Jungle", withExtension: "mp3")!
+        let soundUrl = Bundle.main.url(forResource: "Jungle_Intro", withExtension: "mp3")!
         let backgroundMusic = SKAudioNode(url: soundUrl)
         backgroundMusic.name = "backgroundMusic"
         self.addChild(backgroundMusic)

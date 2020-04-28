@@ -83,6 +83,9 @@ class GameOverScene: SKScene {
         restartLabel.position = CGPoint(x: width/2, y: height*0.15)
         self.addChild(restartLabel)
         
+        let deadSound = SKAction.playSoundFileNamed("dead.wav", waitForCompletion: true)
+        self.run(deadSound)
+        
     }
     
 
