@@ -9,6 +9,7 @@ class GameOverScene: SKScene {
     var scoreLabel = SKLabelNode(fontNamed: "The Bold Font")
     var highScoreLabel = SKLabelNode(fontNamed: "The Bold Font")
     var restartLabel = SKLabelNode(fontNamed: "The Bold Font")
+    var soundButton = SKSpriteNode()
     
     override func didMove(to view: SKView) {
         self.initGameOverScene()
@@ -21,6 +22,19 @@ class GameOverScene: SKScene {
             // the play button was pressed
             if (restartLabel.contains(pointOfTouch)){
                 goToGame()
+            }
+            
+            // the sound button was pressed
+            if (soundButton.contains(pointOfTouch)){
+                // toggle the sound and change the texture of sound image
+                if (sound == true){
+                    soundButton.texture = SKTexture(imageNamed: "sound-mute")
+                    sound = false
+                }
+                else{
+                    soundButton.texture = SKTexture(imageNamed: "sound-enable")
+                    sound = true
+                }
             }
         }
     }
@@ -82,6 +96,19 @@ class GameOverScene: SKScene {
         restartLabel.zPosition = 5
         restartLabel.position = CGPoint(x: width/2, y: height*0.15)
         self.addChild(restartLabel)
+        
+        // create sound button
+        if sound == true{
+            soundButton = SKSpriteNode(imageNamed: "sound-enable")
+        }
+        else{
+            soundButton = SKSpriteNode(imageNamed: "sound-mute")
+        }
+        soundButton.name = "soundButton"
+        soundButton.setScale(0.4)
+        soundButton.zPosition = 1
+        soundButton.position = CGPoint(x: width/7, y: height*0.2)
+        self.addChild(soundButton)
         
         let deadSound = SKAction.playSoundFileNamed("dead.wav", waitForCompletion: true)
         self.run(deadSound)

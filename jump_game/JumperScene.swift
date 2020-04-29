@@ -34,6 +34,7 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
     var timerNode = SKLabelNode(fontNamed: "The Bold Font")
     
     var specialMusic = SKAudioNode()
+    var backgroundMusic = SKAudioNode()
     
     struct PhysicsCategories {
         static let None :       UInt32 = 0
@@ -53,7 +54,7 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
             
         // init the scene with nodes
         self.initJumperScene()
-        
+    
         // start the first level
         self.startNewLevel()
     }
@@ -109,23 +110,27 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         if body1.categoryBitMask == PhysicsCategories.Jumper && body2.categoryBitMask == PhysicsCategories.Reward{
             var scaleAction = SKAction()
             
-            if (body2.node!.name == "special"){
-                scaleAction = SKAction.scale(to: 0.6, duration: 0.1)
+            if (body2.node!.name == "special-red"){
+                scaleAction = SKAction.scale(to: 0.8, duration: 0.1)
             }
             else{
                 scaleAction = SKAction.scale(to: 0.2, duration: 0.1)
             }
-            let fadeAction = SKAction.fadeOut(withDuration: 0.3)
+            let fadeAction = SKAction.fadeOut(withDuration: 1.0)
             let removeAction = SKAction.removeFromParent()
             let rewardSeq = SKAction.sequence([scaleAction, fadeAction, removeAction])
             
             body2.node!.run(rewardSeq)
-            if (body2.node!.name == "special") {
+            
+            let rewardType = body2.node!.name
+            
+            if (body2.node!.name == "special-red") {
                 lastGameLevel = gameLevel
                 gameLevel = 100
                 startNewLevel()
             }
-            addScore()
+            
+            addScore(rewardType: rewardType!)
             
             lastRewardTime = getCurrentTimeInMillis()
 
@@ -187,9 +192,10 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         
         // create sound node
         if (sound == true){
-            let soundUrl = Bundle.main.url(forResource: "Jungle_Ambience", withExtension: "mp3")!
-            let backgroundMusic = SKAudioNode(url: soundUrl)
+            let soundUrl = Bundle.main.url(forResource: "Jungle_Ambience1", withExtension: "mp3")!
+            backgroundMusic = SKAudioNode(url: soundUrl)
             backgroundMusic.name = "backgroundMusic"
+//            backgroundMusic.run(SKAction.changeVolume(to: 0.5, duration: 200.0))
             self.addChild(backgroundMusic)
         }
 
@@ -225,6 +231,15 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
             
         if (gameLevel != 100) {
             lastGameLevel = gameLevel
+        }
+        
+        // Remove the gems and vines in the scene at the beginning of the new level
+        for child in self.children {
+
+           //Determine Details
+            if (child.name == "common" || child.name == "special-red" || child.name == "special-green" || child.name == "vine") {
+                child.removeFromParent()
+            }
         }
         
         if (gameLevel == 1 || gameLevel == 2 || gameLevel == 3){
@@ -283,6 +298,7 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         
         if (gameLevel == 100) {
             counterInt = 10
+            backgroundMusic.run(SKAction.stop())
             addTimer()
             startCounter()
         }
@@ -307,6 +323,7 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
             counterTimer.invalidate()
             gameLevel = lastGameLevel
             removeTimer()
+            backgroundMusic.run(SKAction.play())
             startNewLevel()
         }
         counterInt -= 1
@@ -322,9 +339,12 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         timerNode.position = CGPoint(x: -self.size.width/2*0.85, y: self.size.height/2*0.4)
         self.addChild(timerNode)
         
-        let soundUrl = Bundle.main.url(forResource: "Jungle_Action", withExtension: "mp3")!
-        specialMusic = SKAudioNode(url: soundUrl)
-        self.addChild(specialMusic)
+        if sound == true{
+            let soundUrl = Bundle.main.url(forResource: "Jungle_Action", withExtension: "mp3")!
+            specialMusic = SKAudioNode(url: soundUrl)
+            self.addChild(specialMusic)
+        }
+        
     }
     
     func removeTimer(){
@@ -427,18 +447,19 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         vineNode.anchorPoint = CGPoint(x: 0.5, y: 0)
         vineNode.position = startPoint
         vineNode.zPosition = 2
+        vineNode.name = "vine"
         self.addChild(vineNode)
         
         var rewardNode : SKSpriteNode
         
         if gameLevel == 100 {
             rewardNode = SKSpriteNode(imageNamed: "green-gem")
-            rewardNode.name = "green"
+            rewardNode.name = "special-green"
         }
         else{
             if (specialReward == 0){
                 rewardNode = SKSpriteNode(imageNamed: "special-gem")
-                rewardNode.name = "special"
+                rewardNode.name = "special-red"
             }
             else{
                 rewardNode = SKSpriteNode(imageNamed: "gem")
@@ -492,8 +513,20 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         enemyNode.run(moveMonkey)
     }
     
-    func addScore(){
-        gameScore += 1
+    func addScore(rewardType: String){
+        
+        if rewardType == "common"
+        {
+            gameScore += 1
+        }
+        if rewardType == "special-red"
+       {
+           gameScore += 10
+       }
+        if rewardType == "special-green"
+       {
+           gameScore += 3
+       }
         scoreNode.text = "Score: \(gameScore)"
         
         if gameScore == 10 && gameLevel != 100{

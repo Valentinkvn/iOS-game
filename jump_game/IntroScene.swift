@@ -33,12 +33,12 @@ class GameScene: SKScene {
             if (soundButton.contains(pointOfTouch)){
                 // toggle the sound and change the texture of sound image
                 if (sound == true){
-                    soundButton.texture = SKTexture(imageNamed: "mute")
+                    soundButton.texture = SKTexture(imageNamed: "sound-mute")
                     backgroundMusic.run(SKAction.stop())
                     sound = false
                 }
                 else{
-                    soundButton.texture = SKTexture(imageNamed: "sound")
+                    soundButton.texture = SKTexture(imageNamed: "sound-enable")
                     backgroundMusic.run(SKAction.play())
                     sound = true
                 }
@@ -80,10 +80,11 @@ class GameScene: SKScene {
         self.addChild(playButton)
         
         // create sound button
-        soundButton = SKSpriteNode(imageNamed: "sound")
+        soundButton = SKSpriteNode(imageNamed: "sound-enable")
         soundButton.name = "soundButton"
+        soundButton.setScale(0.8)
         soundButton.zPosition = 1
-        soundButton.position = CGPoint(x: -2*height/3, y: width/6)
+        soundButton.position = CGPoint(x: -2*height/3, y: -width/6)
         self.addChild(soundButton)
         
         // create sound node
