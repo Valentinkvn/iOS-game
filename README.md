@@ -1,6 +1,6 @@
 # Jungle Jump - iOS single player game
 
-The target of the game is to collect as many gems as possible using the jumper actions (jump/crouch) having a number of lives.
+The target of the game is to collect as many gems as possible using the jumper actions (jump/crouch) and having a number of lives.
 
 The game consists of three diferent scenes:
 - Intro Scene
