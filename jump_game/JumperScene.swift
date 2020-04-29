@@ -49,6 +49,7 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         gameScore = 0
         gameLevel = 1
 
+        backgroundColor = SKColor.black
         // enable physics
         self.physicsWorld.contactDelegate = self
             
@@ -144,6 +145,7 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         let height = self.size.height
         
         // init background
+        background.color = SKColor.blue
         background = SKSpriteNode(imageNamed: "in-game-background")
         background.size = self.size
         background.position = CGPoint(x: 0, y: 0)
@@ -163,6 +165,11 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         // init jumper player
         jumperNode = SKSpriteNode(imageNamed: "jumper")
         jumperNode.position = CGPoint(x: -255, y: -125)
+        // jumper animation for init
+        let jumperSeq = SKAction.sequence([SKAction.scale(to: 0, duration: 0.2),
+                                               SKAction.scale(to: 0.2, duration: 0.2),
+                                               SKAction.scale(to: 0.1, duration: 0.2)])
+        jumperNode.run(jumperSeq)
         jumperNode.zPosition = 4
         jumperNode.setScale(0.1)
         jumperNode.name = "jumperNode"
@@ -181,7 +188,6 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         let jumpAtlas = SKTextureAtlas(named: "jump")
         let crouchAtlas = SKTextureAtlas(named: "crouch")
         let groundAtlas = SKTextureAtlas(named: "ground")
-        
         
         jumperRunning = grabAtlas(dataAtlas: runningAtlas, label: "running")
         jumperIdle = grabAtlas(dataAtlas: idleAtlas, label: "idle")
@@ -229,6 +235,10 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
     // function that moves the game to a new level
     func startNewLevel(){
             
+        let bgSeq = SKAction.sequence([SKAction.fadeOut(withDuration: 0.5),
+                                       SKAction.fadeIn(withDuration: 0.5)])
+        background.run(bgSeq)
+        
         if (gameLevel != 100) {
             lastGameLevel = gameLevel
         }
