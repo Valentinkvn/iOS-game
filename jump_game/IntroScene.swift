@@ -51,8 +51,6 @@ class GameScene: SKScene {
         let width = self.size.width
         let height = self.size.height
         
-        print(self.size)
-        
         // init background
         background = SKSpriteNode(imageNamed: "rainforest")
         background.name = "backgroundNode"
@@ -61,7 +59,7 @@ class GameScene: SKScene {
         background.zPosition = 0
         self.addChild(background)
         
-        // set the game logo properties
+        // set the game logo properties with a move animation
         gameLogo = SKSpriteNode(imageNamed: "logo")
         gameLogo.name = "gameLogo"
         gameLogo.zPosition = 1
@@ -95,7 +93,7 @@ class GameScene: SKScene {
     }
     
     private func goToGame() {
-        // first, fadeOut the playbutton and then play the doors transition
+        // first, fadeOut the playbutton and then run the doors transition
         let fadeOut = SKAction.fadeOut(withDuration: 1.0)
         playButton.run(fadeOut, completion: {
             let doors = SKTransition.doorway(withDuration: 2.5)

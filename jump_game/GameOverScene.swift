@@ -4,6 +4,7 @@ class GameOverScene: SKScene {
     
     var highScore = 0
     
+    // declare the main nodes of the scene
     var background = SKSpriteNode()
     var gameOverLabel = SKLabelNode(fontNamed: "The Bold Font")
     var scoreLabel = SKLabelNode(fontNamed: "The Bold Font")
@@ -39,6 +40,7 @@ class GameOverScene: SKScene {
         }
     }
     
+    // function that goes back to the game scene
     private func goToGame() {
         let fadeOut = SKTransition.fade(withDuration: 1.0)
         let gameScene = JumperScene(fileNamed: "JumperScene")
@@ -56,7 +58,6 @@ class GameOverScene: SKScene {
         background = SKSpriteNode(imageNamed: "rainforest")
         background.name = "backgroundNode"
         background.size = self.size
-        //background.anchorPoint = CGPoint(x: width/2, y: height/2)
         background.position = CGPoint(x: width/2, y: height/2)
         background.zPosition = 0
         self.addChild(background)
@@ -75,6 +76,7 @@ class GameOverScene: SKScene {
         scoreLabel.position = CGPoint(x: width/2, y: height*0.5)
         self.addChild(scoreLabel)
         
+        // use the userdefaults utility to store and retrieve the highscore from the non-volatile memory
         if gameScore > UserDefaults.standard.integer(forKey: "highscore"){
             UserDefaults.standard.set(gameScore, forKey: "highscore") // set
             highScore = gameScore
@@ -110,6 +112,7 @@ class GameOverScene: SKScene {
         soundButton.position = CGPoint(x: width/7, y: height*0.2)
         self.addChild(soundButton)
         
+        // play the dead sound
         let deadSound = SKAction.playSoundFileNamed("dead.wav", waitForCompletion: true)
         self.run(deadSound)
         
