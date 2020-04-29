@@ -138,6 +138,11 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
             let rewardType = body2.node!.name
             if (body2.node!.name == "special-red") {
                 lastGameLevel = gameLevel
+                // run a special entry mode animation for the jumper
+                let jumperSeq = SKAction.sequence([SKAction.playSoundFileNamed("special_level.wav", waitForCompletion: false),
+                                                   SKAction.moveTo(x: 200, duration: 0.3),
+                                                   SKAction.moveTo(x: body1.node!.position.x, duration: 0.3)])
+                body1.node!.run(jumperSeq)
                 gameLevel = 100
                 startNewLevel()
             }
@@ -178,11 +183,6 @@ class JumperScene: SKScene, SKPhysicsContactDelegate {
         // init jumper player
         jumperNode = SKSpriteNode(imageNamed: "jumper")
         jumperNode.position = CGPoint(x: -255, y: -125)
-        // jumper animation for init
-        let jumperSeq = SKAction.sequence([SKAction.scale(to: 0, duration: 0.2),
-                                               SKAction.scale(to: 0.2, duration: 0.2),
-                                               SKAction.scale(to: 0.1, duration: 0.2)])
-        jumperNode.run(jumperSeq)
         jumperNode.zPosition = 4
         jumperNode.setScale(0.1)
         jumperNode.name = "jumperNode"

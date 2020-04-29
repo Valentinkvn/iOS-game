@@ -25,6 +25,7 @@
 		A75F35122457AEE800515A91 /* Jungle_Action.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A75F35112457AEE700515A91 /* Jungle_Action.mp3 */; };
 		A75F35182457B4E700515A91 /* dead.wav in Resources */ = {isa = PBXBuildFile; fileRef = A75F35172457B4E700515A91 /* dead.wav */; };
 		A764088F2454CEFB00D1B4B4 /* IntroScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A764088E2454CEFB00D1B4B4 /* IntroScene.swift */; };
+		A77C0ED0245993DB000992F8 /* special_level.wav in Resources */ = {isa = PBXBuildFile; fileRef = A77C0ECF245993DA000992F8 /* special_level.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		A75F35112457AEE700515A91 /* Jungle_Action.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Jungle_Action.mp3; sourceTree = "<group>"; };
 		A75F35172457B4E700515A91 /* dead.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dead.wav; sourceTree = "<group>"; };
 		A764088E2454CEFB00D1B4B4 /* IntroScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScene.swift; sourceTree = "<group>"; };
+		A77C0ECF245993DA000992F8 /* special_level.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = special_level.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				A757A3E824523C720059CFBA /* Jungle_Intro.mp3 */,
 				A75F35112457AEE700515A91 /* Jungle_Action.mp3 */,
 				A757A3EC24523F1E0059CFBA /* sfx_throw.wav */,
+				A77C0ECF245993DA000992F8 /* special_level.wav */,
 				A757A3EF245243FB0059CFBA /* hit.wav */,
 				A75F35172457B4E700515A91 /* dead.wav */,
 				A757A3F324524CCC0059CFBA /* theboldfont.ttf */,
@@ -170,6 +173,7 @@
 				A757A3F424524CCC0059CFBA /* theboldfont.ttf in Resources */,
 				30771E1C244506D200890AB9 /* LaunchScreen.storyboard in Resources */,
 				A757A3ED24523F1E0059CFBA /* sfx_throw.wav in Resources */,
+				A77C0ED0245993DB000992F8 /* special_level.wav in Resources */,
 				A75E2EF624583E1A0008EC73 /* Jungle_Ambience.mp3 in Resources */,
 				A757A3F0245243FB0059CFBA /* hit.wav in Resources */,
 				A751EBD92451067B001B5DD9 /* JumperScene.sks in Resources */,
